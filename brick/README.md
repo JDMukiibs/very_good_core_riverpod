@@ -17,7 +17,7 @@ Out of the box, Very Good Core includes:
 - ✅ [Build Flavors][flutter_flavors_link] - Multiple flavor support for development, staging, and production
 - ✅ [Internationalization Support][internationalization_link] - Internationalization support using synthetic code generation to streamline the development process
 - ✅ [Sound Null-Safety][null_safety_link] - No more null-dereference exceptions at runtime. Develop with a sound, static type system.
-- ✅ [Bloc][bloc_link] - Integrated bloc architecture for scalable, testable code which offers a clear separation between business logic and presentation
+- ✅ [Riverpod][riverpod_link] - A streamlined state management framework that seamlessly integrates into your codebase, providing a cohesive structure for managing state and ensuring a clean demarcation between data handling and user interface concerns.
 - ✅ [Testing][testing_link] - Unit and Widget Tests with 100% line coverage (Integration Tests coming soon!)
 - ✅ [Logging][logging_link] - Built-in, extensible logging to capture uncaught Flutter and Dart Exceptions
 - ✅ [Very Good Analysis][very_good_analysis_link] - Strict Lint Rules which are used at [Very Good Ventures][very_good_ventures_link]
@@ -80,7 +80,6 @@ _\* Learn more at [Flutter Starter App: Very Good Core & CLI][very_good_cli_blog
 └── windows   
 ```
 
-[bloc_link]: https://bloclibrary.dev
 [flutter_cross_platform_link]: https://flutter.dev/docs/development/tools/sdk/release-notes/supported-platforms
 [flutter_flavors_link]: https://flutter.dev/docs/deployment/flavors
 [github_actions_link]: https://github.com/features/actions
@@ -90,6 +89,7 @@ _\* Learn more at [Flutter Starter App: Very Good Core & CLI][very_good_cli_blog
 [logo_white]: https://raw.githubusercontent.com/VGVentures/very_good_brand/main/styles/README/vgv_logo_white.png#gh-dark-mode-only
 [logging_link]: https://api.flutter.dev/flutter/dart-developer/log.html
 [null_safety_link]: https://flutter.dev/docs/null-safety
+[riverpod_link]: https://docs-v2.riverpod.dev/
 [testing_link]: https://flutter.dev/docs/testing
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 [very_good_cli_blog_link]: https://verygood.ventures/blog/flutter-starter-app-very-good-core-cli

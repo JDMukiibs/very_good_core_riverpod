@@ -1,7 +1,7 @@
 name: very_good_core
-description: A Very Good Flutter app created by Very Good Ventures.
-repository: https://github.com/VeryGoodOpenSource/very_good_core
-version: 0.3.0
+description: A Very Good Flutter app created by Very Good Ventures using riverpod.
+repository: https://github.com/JDMukiibs/very_good_core_riverpod
+version: 0.4.0
 
 environment:
   mason: ">=0.1.0-dev.49 <0.1.0"
@@ -24,5 +24,5 @@ vars:
   description:
     type: string
     description: A short project description
-    default: A Very Good App
+    default: A Very Good App using Riverpod
     prompt: What is the project description?

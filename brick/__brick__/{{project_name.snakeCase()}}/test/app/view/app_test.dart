@@ -5,7 +5,11 @@ import 'package:{{project_name.snakeCase()}}/counter/counter.dart';
 void main() {
   group('App', () {
     testWidgets('renders CounterPage', (tester) async {
-      await tester.pumpWidget(const App());
+      await tester.pumpWidget(
+        ProviderScope(
+          child: const App(),
+        ),
+      );
       expect(find.byType(CounterPage), findsOneWidget);
     });
   });

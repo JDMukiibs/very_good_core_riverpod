@@ -1,33 +1,31 @@
 import 'dart:async';
-import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-
-class AppBlocObserver extends BlocObserver {
-  const AppBlocObserver();
-
-  @override
-  void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
-    super.onChange(bloc, change);
-    log('onChange(${bloc.runtimeType}, $change)');
-  }
-
-  @override
-  void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
-    log('onError(${bloc.runtimeType}, $error, $stackTrace)');
-    super.onError(bloc, error, stackTrace);
-  }
-}
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
+import 'package:very_good_core/logging/logging.dart';
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
-  FlutterError.onError = (details) {
-    log(details.exceptionAsString(), stackTrace: details.stack);
-  };
+  // Initialize logger
+  final logger = Logger();
+  final providerObserver = ProviderLogger(logger);
 
-  Bloc.observer = const AppBlocObserver();
+  FlutterError.onError = (errorDetails) {
+    logger.e(
+      'Crash occurred',
+      error: errorDetails.exception,
+      stackTrace: errorDetails.stack,
+    );
+  };
 
   // Add cross-flavor configuration here
 
-  runApp(await builder());
+  runApp(
+    ProviderScope(
+      observers: [
+        providerObserver,
+      ],
+      child: await builder(),
+    ),
+  );
 }
