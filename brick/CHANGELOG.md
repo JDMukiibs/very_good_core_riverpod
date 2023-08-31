@@ -1,3 +1,7 @@
+# 0.4.0
+
+- feat!: replace bloc with riverpod for state management
+
 # 0.3.0
 
 - feat!: update to Flutter 3.10.0

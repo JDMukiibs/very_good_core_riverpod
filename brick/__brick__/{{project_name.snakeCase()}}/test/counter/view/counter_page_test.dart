@@ -1,68 +1,71 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 import 'package:{{project_name.snakeCase()}}/counter/counter.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockCounterCubit extends MockCubit<int> implements CounterCubit {}
-
 void main() {
   group('CounterPage', () {
     testWidgets('renders CounterView', (tester) async {
-      await tester.pumpApp(const CounterPage());
+      await tester.pumpApp(const ProviderScope(child: CounterPage()));
       expect(find.byType(CounterView), findsOneWidget);
     });
   });
 
   group('CounterView', () {
-    late CounterCubit counterCubit;
+    testWidgets('renders 0 as initial count', (tester) async {
+      const expected = 0;
 
-    setUp(() {
-      counterCubit = MockCounterCubit();
-    });
-
-    testWidgets('renders current count', (tester) async {
-      const state = 42;
-      when(() => counterCubit.state).thenReturn(state);
       await tester.pumpApp(
-        BlocProvider.value(
-          value: counterCubit,
+        ProviderScope(
+          overrides: [
+            counterProvider.overrideWith((ref) => 0),
+          ],
           child: const CounterView(),
         ),
       );
-      expect(find.text('$state'), findsOneWidget);
+
+      expect(find.byType(CounterView), findsOneWidget);
+      expect(find.text('$expected'), findsOneWidget);
     });
 
     testWidgets('calls increment when increment button is tapped',
         (tester) async {
-      when(() => counterCubit.state).thenReturn(0);
-      when(() => counterCubit.increment()).thenReturn(null);
+      const expected = 1;
       await tester.pumpApp(
-        BlocProvider.value(
-          value: counterCubit,
+        ProviderScope(
+          overrides: [
+            counterProvider.overrideWith((ref) => 0),
+          ],
           child: const CounterView(),
         ),
       );
+
+      expect(find.byType(CounterView), findsOneWidget);
       await tester.tap(find.byIcon(Icons.add));
-      verify(() => counterCubit.increment()).called(1);
+      await tester.pump();
+      expect(find.text('$expected'), findsOneWidget);
     });
 
     testWidgets('calls decrement when decrement button is tapped',
         (tester) async {
-      when(() => counterCubit.state).thenReturn(0);
-      when(() => counterCubit.decrement()).thenReturn(null);
+      const expected = -1;
+
       await tester.pumpApp(
-        BlocProvider.value(
-          value: counterCubit,
+        ProviderScope(
+          overrides: [
+            counterProvider.overrideWith((ref) => 0),
+          ],
           child: const CounterView(),
         ),
       );
+
+      expect(find.byType(CounterView), findsOneWidget);
       await tester.tap(find.byIcon(Icons.remove));
-      verify(() => counterCubit.decrement()).called(1);
+      await tester.pump();
+      expect(find.text('$expected'), findsOneWidget);
     });
   });
 }
